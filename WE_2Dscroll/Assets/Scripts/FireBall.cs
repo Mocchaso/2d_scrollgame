@@ -8,9 +8,9 @@ public class FireBall : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
-		if (!PlayerController.isLeft) { // 撃つ方向：右
+		if (!PlayerController.isLeft) { // Playerが向いている向き：左
 			ball_speed = 1000;
-		} else { // 撃つ方向：左
+		} else { // Playerが向いている向き：右
 			ball_speed = -1000;
 			// ファイアボールのスプライト付きオブジェクトを左右反転させる
 			Vector3 nowScale = transform.localScale;
