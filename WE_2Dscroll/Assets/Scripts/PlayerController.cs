@@ -89,12 +89,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Move() {
-		// 接地している時にSpaceキー押下でジャンプ。押す長さによって高さが変わる
+		// 接地している時にSpaceキー押下でジャンプ
+		// 実装予定：押す長さによって高さが変わる
 		if (isGround && Input.GetKeyDown(KeyCode.Space)) {
-			if (rigidbody2D.velocity.y < jump_vy_limit) { // ジャンプの速度が一定の速度に達するまで力を加える
-				Debug.Log(rigidbody2D.velocity.y);
-				rigidbody2D.AddForce(Vector2.up * jump_force);
-			}
+			rigidbody2D.AddForce(Vector2.up * jump_force);
 		}
 
 		// 左右の移動
@@ -124,16 +122,16 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.gameObject.tag == "Enemy") { // ぶつかったオブジェクトの判別
-			GUIController.damaged++;
+			GameManager.damaged++;
 		} else if (collision.gameObject.tag == "GameOver") {
-			// 落下したらゲームオーバー、同じシーンをリロードする
-			SceneManager.LoadScene("Main");
+			// 落下したらゲームオーバー
+			GameManager.isGameOver = true;
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D obj) {
 		if (obj.gameObject.tag == "Goal") { // ぶつかったオブジェクトの判別
-			GUIController.isGoaled = true;
+			GameManager.isGoaled = true;
 		}
 	}
 }
